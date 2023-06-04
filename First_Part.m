@@ -8,15 +8,15 @@ x(1:B1, 1:B2) = 1;
 
 X = FFT2D(x);
 
-Plotting the DFT
-figure;
-subplot(1, 1, 1);
-imagesc(abs(X));
-title('2-Dimensional DFT');
-xlabel('k2');
-ylabel('k1');
-colorbar;
-colormap jet;
+% Plotting the DFT
+% figure;
+% subplot(1, 1, 1);
+% imagesc(abs(X));
+% title('2-Dimensional DFT');
+% xlabel('k2');
+% ylabel('k1');
+% colorbar;
+% colormap jet;
 
 % run in command line: [dist_image_1,dist_image_2,noised_image,imp_resp_image]=img_gen(input1,input2);
 % סעיף ה
@@ -32,5 +32,19 @@ frequencies = [0, 2*pi/6, 2*2*pi/6, 4*2*pi/6];
 % Calculate the DTFT values by scaling the FFT output
 dtft_values = fft_result(round(frequencies*(length(fft_result)/(2*pi)))+1)
 
+% סעיף ו
+% Define w[n]
+w = zeros(1, 30);
+w(1) = 1;
+w(30) = 1;
 
+% Calculate the cyclic convolution
+cyclic_conv = cconv(h0, w, 32)
+
+% Plot the result
+n = 0:31;
+stem(n, cyclic_conv);
+xlabel('n');
+ylabel('Cyclic Convolution');
+title('Cyclic Convolution of h_0[n] with w[n]');
 
