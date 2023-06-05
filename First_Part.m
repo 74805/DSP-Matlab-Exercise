@@ -122,3 +122,31 @@ colorbar;
 colormap jet;
 
 
+% סעיף ט - בונוס
+h = imp_resp_image;
+y1 = dist_image_1;
+
+% Set the number of iterations
+numIterations = 10000;
+
+% Initialize the reconstructed image with the degraded image
+x = y1;
+
+% Perform Richardson-Lucy deconvolution
+for iter = 1:numIterations
+    % Estimate the error between the observed and estimated images
+    relative_blur = y1 ./ (conv2(x, h, 'same') + eps);
+    
+    % Update the reconstructed image
+    x = x .* (conv2(relative_blur, rot90(h, 2), 'same'));
+end
+
+% Display the reconstructed image
+figure;
+subplot(1, 1, 1);
+imagesc(abs(x));
+title('x1');
+xlabel('m');
+ylabel('n');
+colorbar;
+colormap jet;
