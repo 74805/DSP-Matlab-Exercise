@@ -56,15 +56,11 @@ title('Cyclic Convolution of h_0[n] with w[n]');
 y1 = dist_image_1;
 y2 = dist_image_2;
 
-% Pad h with the right amount of zeros to match y1 and y2
-h1 = imresize(h, size(y1));
-h2 = imresize(h, size(y2));
-
 % Calculate DFT
 Y1 = fft2(y1);
 Y2 = fft2(y2);
-H1 = fft2(h1);
-H2 = fft2(h2);
+H1 = fft2(h, size(y1, 1), size(y1, 2));
+H2 = fft2(h, size(y2, 1), size(y2, 2));
 
 % Yi = Xi*Hi
 X1 = Y1./H1;
@@ -83,6 +79,8 @@ xlabel('m');
 ylabel('n');
 colorbar;
 colormap jet;
+figure;
+imshow(x2)
 
 figure;
 subplot(1, 1, 1);
@@ -92,57 +90,9 @@ xlabel('m');
 ylabel('n');
 colorbar;
 colormap jet;
-
-
-% סעיף ט - בונוס
-h = imp_resp_image;
-y2 = dist_image_2;
-
-% Initialize the reconstructed image with the degraded image
-x = y2;
-
-% Perform Richardson-Lucy deconvolution
-numIterations = 100;
-for iter = 1:numIterations
-    relative_blur = y2 ./ (conv2(x, h, 'same') + eps);
-    
-    x = x .* (conv2(relative_blur, rot90(h, 2), 'same'));
-end
-
-% Display the reconstructed image
 figure;
-subplot(1, 1, 1);
-imagesc(abs(x));
-title('x2');
-xlabel('m');
-ylabel('n');
-colorbar;
-colormap jet;
+imshow(x1)
 
-% Reconstruct x1 the same way
-h = imp_resp_image;
-y1 = dist_image_1;
-
-% Initialize the reconstructed image with the degraded image
-x = y1;
-
-% Perform Richardson-Lucy deconvolution
-numIterations = 100;
-for iter = 1:numIterations
-    relative_blur = y1 ./ (conv2(x, h, 'same') + eps);
-    
-    x = x .* (conv2(relative_blur, rot90(h, 2), 'same'));
-end
-
-% Display the reconstructed image
-figure;
-subplot(1, 1, 1);
-imagesc(abs(x));
-title('x1');
-xlabel('m');
-ylabel('n');
-colorbar;
-colormap jet;
 
 
 
