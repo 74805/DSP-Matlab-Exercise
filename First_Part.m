@@ -18,7 +18,8 @@ ylabel('k1');
 colorbar;
 colormap jet;
 
-% run in command line: [dist_image_1,dist_image_2,noised_image,imp_resp_image]=img_gen(input1,input2);
+
+% Run in command line: [dist_image_1,dist_image_2,noised_image,imp_resp_image]=img_gen(input1,input2);
 % סעיף ה
 h = imp_resp_image;
 h0 = h(:,1);
@@ -31,6 +32,7 @@ frequencies = [0, 2*pi/6, 2*2*pi/6, 4*2*pi/6];
 
 % Calculate the DTFT values by scaling the FFT output
 dtft_values = fft_result(round(frequencies*(length(fft_result)/(2*pi)))+1);
+
 
 % סעיף ו
 % Define w[n]
@@ -48,6 +50,7 @@ stem(n, cyclic_conv);
 xlabel('n');
 ylabel('Cyclic Convolution');
 title('Cyclic Convolution of h_0[n] with w[n]');
+
 
 % סעיף ז
 y1 = dist_image_1;
@@ -91,23 +94,18 @@ colorbar;
 colormap jet;
 
 
-
 % סעיף ט - בונוס
 h = imp_resp_image;
 y2 = dist_image_2;
-
-% Set the number of iterations
-numIterations = 10000;
 
 % Initialize the reconstructed image with the degraded image
 x = y2;
 
 % Perform Richardson-Lucy deconvolution
+numIterations = 100;
 for iter = 1:numIterations
-    % Estimate the error between the observed and estimated images
     relative_blur = y2 ./ (conv2(x, h, 'same') + eps);
     
-    % Update the reconstructed image
     x = x .* (conv2(relative_blur, rot90(h, 2), 'same'));
 end
 
@@ -121,23 +119,18 @@ ylabel('n');
 colorbar;
 colormap jet;
 
-
-% סעיף ט - בונוס
+% Reconstruct x1 the same way
 h = imp_resp_image;
 y1 = dist_image_1;
-
-% Set the number of iterations
-numIterations = 10000;
 
 % Initialize the reconstructed image with the degraded image
 x = y1;
 
 % Perform Richardson-Lucy deconvolution
+numIterations = 100;
 for iter = 1:numIterations
-    % Estimate the error between the observed and estimated images
     relative_blur = y1 ./ (conv2(x, h, 'same') + eps);
     
-    % Update the reconstructed image
     x = x .* (conv2(relative_blur, rot90(h, 2), 'same'));
 end
 
@@ -150,3 +143,7 @@ xlabel('m');
 ylabel('n');
 colorbar;
 colormap jet;
+
+
+
+
