@@ -10,7 +10,6 @@ X = FFT2D(x);
 
 % Plot the DFT
 figure;
-subplot(1, 1, 1);
 imagesc(abs(X));
 title('2-Dimensional DFT');
 xlabel('k2');
@@ -72,7 +71,6 @@ x2 = ifft2(X2);
 
 % Plot the images
 figure;
-subplot(1, 1, 1);
 imagesc(abs(x1));
 title('x1');
 xlabel('m');
@@ -83,7 +81,6 @@ figure;
 imshow(x2)
 
 figure;
-subplot(1, 1, 1);
 imagesc(abs(x2));
 title('x2');
 xlabel('m');
