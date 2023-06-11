@@ -28,3 +28,11 @@ z = 50*sqrt(Px)*(cos(w1*n)+cos(w2*n)+cos(w3*n));
 y = x + z;
 %soundsc(y, 16000);
 % ההקלטה נשמעת חלשה מאוד ועם הרבה רעש ברקע
+
+% סעיף ג
+% Plot y[n]
+figure;
+plot(n, y);
+xlabel('n');
+ylabel('y');
+title('y[n]');
