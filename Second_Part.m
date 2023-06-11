@@ -8,3 +8,6 @@ audioSignal = audioSignal(1:N);
 
 x = audioSignal;
 
+
+% סעיף א
+Px = (1/N) * sum(x.^2);
