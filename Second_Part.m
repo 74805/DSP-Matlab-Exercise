@@ -1,4 +1,3 @@
-
 % Load the audio file
 [audioSignal, sampleRate] = audioread('audioFile.wav');
 % Resample the audio signal
@@ -36,3 +35,14 @@ plot(n, y);
 xlabel('n');
 ylabel('y');
 title('y[n]');
+
+% סעיף ד
+omega = -pi:2*pi/128:pi;
+Y = exp(-1i*omega'*n)  * y.';
+
+% Plot Y[e^(jw)] (one cycle)
+figure;
+plot(omega, abs(Y));
+xlabel('w');
+ylabel('Y');
+title('Y[e^j^w]');
