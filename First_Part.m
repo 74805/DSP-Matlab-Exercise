@@ -78,18 +78,35 @@ ylabel('n');
 colorbar;
 colormap jet;
 figure;
-imshow(x2)
+imshow(x1)
 
 figure;
+subplot(2, 1, 1);
 imagesc(abs(x2));
 title('x2');
 xlabel('m');
 ylabel('n');
 colorbar;
 colormap jet;
-figure;
-imshow(x1)
+subplot(2, 1, 2);
+imshow(x2)
 
+% סעיף ט - בונוס
+% implement Richardson-Lucy deconvolution algorithn for x2[n]
+h = imp_resp_image;
+y2 = dist_image_2;
+
+x2 = deconvlucy(y2, h);
+
+% Display the reconstructed image
+figure;
+subplot(1, 1, 1);
+imagesc(abs(x2));
+title('x2');
+xlabel('m');
+ylabel('n');
+colorbar;
+colormap jet;
 
 
 
