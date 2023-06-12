@@ -42,12 +42,12 @@ title('y[n]');
 omega = -pi:2*pi/128:pi;
 Y = exp(-1i*omega'*n)  * y.';
 
-% Plot Y[e^(jw)] (one cycle)
+% Plot Y(e^(jw)) (one cycle)
 figure;
 plot(omega, abs(Y));
 xlabel('w');
-ylabel('Y');
-title('Y[e^j^w]');
+ylabel('Y(e^j^w)');
+title('Y(e^j^w)');
 
 % סעיף ה
 z2 = downsample(z, 2);
@@ -55,3 +55,24 @@ z2 = downsample(z, 2);
 % DTFT:
 n=1:N/2;
 Z2 = exp(-1i*omega'*n)  * z2.';
+
+
+% סעיף ו
+y2 = downsample(y, 2);
+Y2 = exp(-1i*omega'*n)  * y2.';
+
+% Plot y2[n]
+figure;
+plot(n, y2);
+xlabel('n');
+ylabel('y2[n]');
+title('y2[n]');
+
+% Plot Y2(e^(jw)) (one cycle)
+figure;
+plot(omega, abs(Y2));
+xlabel('w');
+ylabel('Y2(e^j^w)');
+title('Y2(e^j^w)');
+
+soundsc(y2, Fs/2);
